@@ -3,7 +3,7 @@ import base64
 import datetime
 import os
 
-from flask import Blueprint, request, current_app, url_for, jsonify
+from flask import Blueprint, request, current_app, url_for
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 from itsdangerous import TimedJSONWebSignatureSerializer

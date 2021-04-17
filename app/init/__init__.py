@@ -1,6 +1,5 @@
 import ast
 import base64
-import os
 
 import pandas as pd
 import xlrd

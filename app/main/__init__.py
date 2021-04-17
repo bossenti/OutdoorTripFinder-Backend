@@ -17,9 +17,8 @@ from app.entities.country import Country
 from app.entities.region import Region
 from app.entities.activity_type import ActivityType
 from app.entities.location_activity import LocationActivity
-from app.entities.activity import Activity, ActivityAttributes
+from app.entities.activity import Activity
 from app.entities.location import Location, LocationAttributes
-from app.entities.comment import Comment, CommentAttributes
 from app.main.error_handling import investigate_integrity_error
 from app.utils import responses
 from app.utils.responses import ResponseMessages, create_response
