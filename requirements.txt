@@ -11,3 +11,4 @@ flask-moment~=0.10.0
 flask-sqlalchemy~=2.4.4
 psycopg2~=2.8.6
 boto3~=1.17.21
+gunicorn
