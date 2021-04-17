@@ -301,10 +301,7 @@ def get_file(act_id):
         return create_response(None, responses.UNAUTHORIZED_403, ResponseMessages.FIND_NOT_AUTHORIZED, Activity, 403)
 
 
-@main.route('test')
+@main.route('/test')
 def test():
-    session = Session()
 
-    act = session.query(Activity).get(88)
-
-    return create_response(act.country_all(output='name'), None, None, None, 200)
+    return create_response("hi", None, None, None, 200)
