@@ -72,7 +72,7 @@ def process_consent(typ, token):
 @http_auth.verify_password
 def verify_password(email_or_token, password):
     """
-    verifies the credentials provided by HTTP Auth, is invoked before endpoint is acessed
+    verifies the credentials provided by HTTP Auth, is invoked before endpoint is accessed
     Args:
         email_or_token: email address of user or authentication token
         password: user password (only required in case of login via email)
@@ -120,8 +120,8 @@ def get_token(data_encoded):
         data_encoded: BASE64 encoded JSON
 
     Returns:
-        Flask response, consisting of encoded user (only containing attributes specified in {output},response code,
-         response message, affected class, and http code
+        Flask response, consisting of encoded user (only containing attributes specified in {output}, response code,
+        response message, affected class, and http code
     """
     session = Session()
     user = http_auth.current_user
