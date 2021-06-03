@@ -32,10 +32,10 @@ def stats_general():
         'noCountry': statistic.no_countries,
         'noRegion': statistic.no_regions,
         'noLocation': statistic.no_locations,
-        'popCountry': statistic.pop_country.abbreviation,
-        'popRegion': statistic.pop_region.name,
-        'popActivityType': statistic.pop_activity_type.name,
-        'popActivity': statistic.pop_activity.name
+        'popCountry': statistic.get_pop_country(),
+        'popRegion': statistic.get_pop_region(),
+        'popActivityType': statistic.get_pop_activity_type(),
+        'popActivity': statistic.get_pop_activity()
     }
 
     return create_response(result, responses.SUCCESS_200, ResponseMessages.FIND_SUCCESS, None, 200)

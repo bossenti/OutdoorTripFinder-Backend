@@ -56,3 +56,7 @@ def intersection(ids, keys_used):
 
 def sort_dict(items):
     return {k: v for k, v in sorted(items, key=lambda item: item[1], reverse=True)}
+
+
+def sort_dict(items):
+    return {k: v for k, v in sorted(items, key=lambda item: item[1], reverse=True)}
