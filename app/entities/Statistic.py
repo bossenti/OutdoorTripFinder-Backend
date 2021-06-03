@@ -173,6 +173,30 @@ class Statistic(Entity, Base):
     def update_countries(self, session):
         self.count(session, 'no_countries')
 
+    def get_pop_country(self):
+        if self.pop_country is not None:
+            return self.pop_country.abbreviation
+        else:
+            return ''
+
+    def get_pop_activity(self):
+        if self.pop_activity is not None:
+            return self.pop_activity.name
+        else:
+            return ''
+
+    def get_pop_activity_type(self):
+        if self.pop_activity_type is not None:
+            return self.pop_activity_type.name
+        else:
+            return ''
+
+    def get_pop_region(self):
+        if self.pop_region is not None:
+            return self.pop_region.name
+        else:
+            return ''
+
     @classmethod
     def instance(cls, session):
         # check whether Statistic already exists
