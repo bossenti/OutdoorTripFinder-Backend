@@ -2,6 +2,7 @@ import ast
 import base64
 import os
 from pathlib import Path
+from threading import Thread
 
 import boto3
 import sqlalchemy as sql
@@ -10,6 +11,7 @@ from flask import Blueprint, request as rq, send_file
 from sqlalchemy import or_
 
 from app.auth import http_auth
+from app.entities.Statistic import Statistic
 from app.entities.entity import Session
 from app.entities.hike_relations import HikeRelation
 from app.entities.user import Permission, User
@@ -30,10 +32,6 @@ main = Blueprint('main', __name__)
 
 def get_main_app():
     return main
-
-
-def sort_dict(items):
-    return {k: v for k, v in sorted(items, key=lambda item: item[1], reverse=True)}
 
 
 def check_integrity_error(ie, session, class_type):
@@ -226,7 +224,7 @@ def find_tour_by_area(data_encoded):
 
     return create_response(activities, responses.SUCCESS_200, ResponseMessages.FIND_SUCCESS, Activity.__name__, 200)
 
-
+# TODO: umstellen auf data_encoded
 @main.route('/hike/<act_id>', methods=['GET'])
 @http_auth.login_required
 def add_hike(act_id):
@@ -252,10 +250,16 @@ def add_hike(act_id):
         if typ == 'add':
             hike = user.add_hike(activity, session)
             res = hike.serialize()
+            session_thread = Session()
+            statistic = Statistic.instance(session_thread)
+            Thread(target=statistic.update_popularity, args=(session_thread, HikeRelation)).start()
         elif typ == 'check':
             res = True if user.has_hiked(activity) is True else False
         elif typ == 'rem':
             user.delete_hike(activity, session)
+            session_thread = Session()
+            statistic = Statistic.instance(session_thread)
+            Thread(target=statistic.update_popularity, args=(session_thread, HikeRelation)).start()
 
         session.expunge_all()
         session.close()

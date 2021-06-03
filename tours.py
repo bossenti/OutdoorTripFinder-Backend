@@ -4,6 +4,7 @@ import unittest
 
 from flask_cors import CORS
 from app import create_app, db
+from app.entities.Statistic import Statistic
 from app.entities.user import User
 from app.entities.role import Role
 from app.entities.country import Country
@@ -37,7 +38,7 @@ def after_request(response):
 def make_shell_context():
     return dict(db=db, User=User, Role=Role, Country=Country, Region=Region, LocationType=LocationType,
                 LocationActivity=LocationActivity, Location=Location, Activity=Activity, ActivityType=ActivityType,
-                HikeRelation=HikeRelation, Comment=Comment)
+                HikeRelation=HikeRelation, Comment=Comment, Statistic=Statistic)
 
 
 @app.cli.command()

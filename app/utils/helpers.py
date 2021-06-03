@@ -52,3 +52,7 @@ def sort_by_dist(dic):
 def intersection(ids, keys_used):
     lst3 = [v for v in keys_used if v not in ids]
     return lst3
+
+
+def sort_dict(items):
+    return {k: v for k, v in sorted(items, key=lambda item: item[1], reverse=True)}

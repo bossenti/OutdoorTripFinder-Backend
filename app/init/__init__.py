@@ -7,6 +7,7 @@ import xlrd
 from flask import Blueprint
 
 from app.auth import http_auth
+from app.entities.Statistic import Statistic
 from app.entities.activity import Activity
 from app.entities.activity_type import ActivityType
 from app.entities.country import Country
@@ -30,6 +31,12 @@ def init_db():
 
     Base.metadata.create_all(engine)
     Role.insert_roles(session)
+
+    # check whether Statistic instance exists
+    try:
+        Statistic.instance(session)
+    except RuntimeError:
+        Statistic().create(session)
 
     session.expunge_all()
     session.close()

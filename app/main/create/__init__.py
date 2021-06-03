@@ -1,7 +1,9 @@
 from flask import Blueprint, request as rq
 from sqlalchemy.exc import IntegrityError
+from threading import Thread
 
 from app.auth import http_auth
+from app.entities.Statistic import Statistic
 from app.entities.activity import Activity
 from app.entities.activity_type import ActivityType
 from app.entities.comment import Comment
@@ -43,7 +45,16 @@ def create(data, user, class_type):
             else:
                 resp = check_result
                 return resp
-
+        else:
+            session.expunge_all()
+            if class_type in [Activity, Country, Region, Location]:
+                session_thread = Session()
+                statistic = Statistic.instance(session_thread)
+                Thread(target=statistic.update_number, args=(session_thread, class_type)).start()
+            if class_type in [LocationActivity, Activity]:
+                session_thread = Session()
+                statistic = Statistic.instance(session_thread)
+                Thread(target=statistic.update_popularity, args=(session_thread, class_type)).start()
         finally:
             session.expunge_all()
             session.close()
