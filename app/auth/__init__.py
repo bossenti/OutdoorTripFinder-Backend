@@ -91,10 +91,11 @@ def verify_password(email_or_token, password):
         return http_auth.current_user is not None
     user = session.query(User).filter(or_(User.email == email_or_token,
                                           User.username == email_or_token)).first()
+
     session.expunge_all()
     session.close()
 
-    if not user:
+    if not user.verify_password(password):
         return False
     http_auth.current_user = user
     http_auth.token_used = False

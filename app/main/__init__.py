@@ -287,8 +287,12 @@ def get_file(act_id):
 
         activity = session.query(Activity).get(act_id)
 
-        for file in os.listdir(Path(__file__).parent / "./downloads"):
-            os.remove(os.path.join(Path(__file__).parent / "./downloads", file))
+        if os.path.exists(Path(__file__).parent / "./downloads"):
+
+            for file in os.listdir(Path(__file__).parent / "./downloads"):
+                os.remove(os.path.join(Path(__file__).parent / "./downloads", file))
+        else:
+            os.mkdir(Path(__file__).parent / "./downloads")
 
         s3_resource = boto3.resource(
             's3',
